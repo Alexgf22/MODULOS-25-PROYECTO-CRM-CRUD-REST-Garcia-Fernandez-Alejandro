@@ -1,5 +1,4 @@
 import { modificarCliente} from './basededatos.js'
-import {actualizarFilaEnTabla} from './nuevocliente.js'
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -21,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = "index.html"
     })
 
-    const btnGuardarCambios = document.querySelector('#formulario button[type="submit"]')
+    //const btnGuardarCambios = document.querySelector('#formulario button[type="submit"]')
 
     const nombreInput = document.querySelector("#nombre")
     const emailInput = document.querySelector("#email")
@@ -33,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
     telefonoInput.addEventListener("input", validarFormulario)
     empresaInput.addEventListener("input", validarFormulario)
     
-    btnGuardarCambios.addEventListener("click", async function (event) {
+    /* btnGuardarCambios.addEventListener("click", async function (event) {
         event.preventDefault()
     
         const clienteID = obtenerIdClienteDesdeURL()
@@ -47,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
         actualizarFilaEnTabla(clienteID, nuevoNombre, nuevoTelefono, nuevaEmpresa)
     
         window.location.href = "index.html"
-    })
+    }) */
 
     // Funciones
     function cargarDatosCliente(idCliente) {
@@ -103,6 +102,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const empresaEsValida = validarEmpresa(nuevaEmpresa)
 
         const formularioEsValido = nombreEsValido && emailEsValido && telefonoEsValido && empresaEsValida
+
+        const btnGuardarCambios = document.querySelector('#formulario button[type="submit"]')
 
         if (!nombreEsValido) {
             mostrarAlerta("Nombre inválido", nombreInput)

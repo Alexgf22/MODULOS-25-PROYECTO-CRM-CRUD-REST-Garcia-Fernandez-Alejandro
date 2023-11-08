@@ -8,15 +8,6 @@ let clienteOBJ = {
     empresa: ""
 }
 
-export function actualizarFilaEnTabla(idCliente, nuevoNombre, nuevoTelefono, nuevaEmpresa) {
-    const fila = document.querySelector(`tr[data-id="${idCliente}"]`)
-    if (fila) {
-        fila.querySelector("td:nth-child(1)").textContent = nuevoNombre
-        fila.querySelector("td:nth-child(2)").textContent = nuevoTelefono
-        fila.querySelector("td:nth-child(3)").textContent = nuevaEmpresa
-    }
-} 
-
 // Selectores y Listeners
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -236,7 +227,13 @@ document.addEventListener("DOMContentLoaded", () => {
     
         fila.appendChild(acciones)
     
-        tablaDeClientes.appendChild(fila)
+        //tablaDeClientes.appendChild(fila)
+
+        if (tablaDeClientes) {
+            tablaDeClientes.appendChild(fila)
+        } else {
+            console.error("No se pudo encontrar el elemento 'tablaDeClientes'.")
+        }
     }
 
     function resaltarCampoActivo(e) {
