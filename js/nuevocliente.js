@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
             botonEditar.classList.add("uppercase")
             botonEditar.classList.add("font-bold")
 
-            botonEditar.addEventListener("click", (e) => {
+            botonEditar.addEventListener("click", () => {
                 const idCliente = fila.dataset.id
                 const url = `editar-cliente.html?id=${idCliente}`
                 window.location.href = url
@@ -206,10 +206,8 @@ document.addEventListener("DOMContentLoaded", () => {
         botonEditar.classList.add("uppercase")
         botonEditar.classList.add("font-bold")
 
-        botonEditar.addEventListener("click", (e) => {
-            const idCliente = fila.dataset.id
-            
-            const url = `editar-cliente.html?id=${idCliente}`
+        botonEditar.addEventListener("click", () => {
+            const url = `editar-cliente.html?id=${cliente.id}`
             window.location.href = url
         })
         
