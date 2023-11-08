@@ -124,7 +124,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 fila.remove()
             })
             
-
             contenedorBotones.appendChild(botonEditar)
             contenedorBotones.appendChild(espacio)
             contenedorBotones.appendChild(botonBorrar)
@@ -226,11 +225,8 @@ document.addEventListener("DOMContentLoaded", () => {
         botonBorrar.classList.add("uppercase")
         botonBorrar.classList.add("font-bold")
 
-        botonBorrar.addEventListener("click", (e) => {
-            const fila = e.target.parentElement.parentElement.parentElement
-            const idCliente = fila.dataset.id
-            console.log("ID del cliente a eliminar:", idCliente)
-            eliminarCliente(idCliente)
+        botonBorrar.addEventListener("click", () => {
+            eliminarCliente(cliente.id)
             fila.remove()
         })
 

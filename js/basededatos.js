@@ -95,6 +95,7 @@ function eliminarCliente(id) {
   let transaction = db.transaction(["clientes"], "readwrite")
   let objectStore = transaction.objectStore("clientes")
 
+  console.log(id)
   let request = objectStore.delete(id)
 
   request.onsuccess = function(event) {
