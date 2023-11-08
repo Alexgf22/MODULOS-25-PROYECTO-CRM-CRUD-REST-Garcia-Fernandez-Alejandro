@@ -21,17 +21,13 @@ request.onsuccess = function(event) {
     return
   }
 
-  /*obtenerClientes(function(clientes) {
-    console.log(clientes)
-  })
-  */
 }
 
 request.onerror = function(event) {
   console.error('Error al abrir la base de datos:', event.target.errorCode)
 }
 
-function agregarCliente(cliente) {
+export function agregarCliente(cliente) {
   let transaction = db.transaction(["clientes"], "readwrite")
   let objectStore = transaction.objectStore("clientes")
 
@@ -44,7 +40,7 @@ function agregarCliente(cliente) {
   }
 }
 
-function modificarCliente(id, nuevoNombre, nuevoEmail, nuevoTelefono, nuevaEmpresa) {
+export function modificarCliente(id, nuevoNombre, nuevoEmail, nuevoTelefono, nuevaEmpresa) {
   const transaction = db.transaction(['clientes'], 'readwrite')
   const objectStore = transaction.objectStore('clientes')
   const request = objectStore.get(id)
@@ -76,7 +72,7 @@ function modificarCliente(id, nuevoNombre, nuevoEmail, nuevoTelefono, nuevaEmpre
   }
 }
 
-function obtenerClientes(callback) {
+export function obtenerClientes(callback) {
   const transaction = db.transaction(['clientes'], 'readonly')
   const objectStore = transaction.objectStore('clientes')
   const request = objectStore.getAll()
@@ -91,7 +87,7 @@ function obtenerClientes(callback) {
   }
 }
 
-function eliminarCliente(id) {
+export function eliminarCliente(id) {
   let transaction = db.transaction(["clientes"], "readwrite")
   let objectStore = transaction.objectStore("clientes")
 
@@ -108,4 +104,3 @@ function eliminarCliente(id) {
 }
 
 
-export{agregarCliente, modificarCliente, eliminarCliente, obtenerClientes}
