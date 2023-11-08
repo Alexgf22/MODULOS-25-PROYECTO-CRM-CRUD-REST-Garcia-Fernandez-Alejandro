@@ -32,22 +32,6 @@ document.addEventListener("DOMContentLoaded", () => {
     telefonoInput.addEventListener("input", validarFormulario)
     empresaInput.addEventListener("input", validarFormulario)
     
-    /* btnGuardarCambios.addEventListener("click", async function (event) {
-        event.preventDefault()
-    
-        const clienteID = obtenerIdClienteDesdeURL()
-        const nuevoNombre = nombreInput.value
-        const nuevoEmail = emailInput.value
-        const nuevoTelefono = telefonoInput.value
-        const nuevaEmpresa = empresaInput.value
-    
-        await modificarCliente(clienteID, nuevoNombre, nuevoEmail, nuevoTelefono, nuevaEmpresa)
-    
-        actualizarFilaEnTabla(clienteID, nuevoNombre, nuevoTelefono, nuevaEmpresa)
-    
-        window.location.href = "index.html"
-    }) */
-
     // Funciones
     function cargarDatosCliente(idCliente) {
         console.log('ID del Cliente:', idCliente)
