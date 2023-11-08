@@ -137,8 +137,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             let copiaClienteOBJ = { ...clienteOBJ, id }
 
-            listadoClientes.push(copiaClienteOBJ)
-
             agregarCliente(copiaClienteOBJ)
 
             clienteOBJ.nombre = ""
