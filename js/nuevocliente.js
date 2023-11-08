@@ -1,7 +1,5 @@
 import { agregarCliente, eliminarCliente } from './basededatos.js'
 
-var listadoClientes = []
-
 // Objeto con los datos del cliente
 let clienteOBJ = {
     nombre: "",
@@ -102,7 +100,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             botonEditar.addEventListener("click", (e) => {
                 const idCliente = fila.dataset.id
-                
                 const url = `editar-cliente.html?id=${idCliente}`
                 window.location.href = url
             })
@@ -121,15 +118,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
             botonBorrar.addEventListener("click", (e) => {
                 const fila = e.target.parentElement.parentElement.parentElement
-                const indiceFila = fila.rowIndex - 1
                 const idCliente = fila.dataset.id
                 console.log("ID del cliente a eliminar:", idCliente)
                 eliminarCliente(idCliente)
-                
                 fila.remove()
-                
-                listadoClientes.splice(indiceFila, 1)
-                localStorage.setItem("Clientes", JSON.stringify(listadoClientes))
             })
             
 
@@ -155,8 +147,6 @@ document.addEventListener("DOMContentLoaded", () => {
             clienteOBJ.empresa = "" 
             formulario.reset()
             comprobarFormulario()
-
-            localStorage.setItem("Clientes", JSON.stringify(listadoClientes))
         }
     }
 
@@ -240,12 +230,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         botonBorrar.addEventListener("click", (e) => {
             const fila = e.target.parentElement.parentElement.parentElement
-            const indiceFila = fila.rowIndex - 1
-
-            // Eliminamos el cliente de la lista y del DOM
-            listadoClientes.splice(indiceFila, 1)
             fila.remove()
-            localStorage.setItem("Clientes", JSON.stringify(listadoClientes))
         }) 
 
         contenedorBotones.appendChild(botonEditar)
