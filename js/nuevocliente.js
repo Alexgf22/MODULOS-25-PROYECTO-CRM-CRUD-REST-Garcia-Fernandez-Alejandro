@@ -228,8 +228,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         botonBorrar.addEventListener("click", (e) => {
             const fila = e.target.parentElement.parentElement.parentElement
+            const idCliente = fila.dataset.id
+            console.log("ID del cliente a eliminar:", idCliente)
+            eliminarCliente(idCliente)
             fila.remove()
-        }) 
+        })
 
         contenedorBotones.appendChild(botonEditar)
         contenedorBotones.appendChild(espacio)
