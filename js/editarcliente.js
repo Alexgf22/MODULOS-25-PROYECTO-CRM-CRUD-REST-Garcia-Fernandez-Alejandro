@@ -75,10 +75,10 @@ document.addEventListener("DOMContentLoaded", () => {
     
 
     function validarFormulario() {
-        const nuevoNombre = nombreInput.value
-        const nuevoEmail = emailInput.value
-        const nuevoTelefono = telefonoInput.value
-        const nuevaEmpresa = empresaInput.value
+        const nuevoNombre = nombreInput.value.trim()
+        const nuevoEmail = emailInput.value.trim()
+        const nuevoTelefono = telefonoInput.value.trim()
+        const nuevaEmpresa = empresaInput.value.trim()
 
         const nombreEsValido = validarNombre(nuevoNombre)
         const emailEsValido = validarEmail(nuevoEmail)
@@ -90,27 +90,27 @@ document.addEventListener("DOMContentLoaded", () => {
         const btnGuardarCambios = document.querySelector('#formulario button[type="submit"]')
 
         if (!nombreEsValido) {
-            mostrarAlerta("Nombre inválido", nombreInput)
+            mostrarAlerta("Nombre inválido", nombreInput.parentElement)
         } else {
-            limpiarAlerta(nombreInput)
+            limpiarAlerta(nombreInput.parentElement)
         } 
         
         if (!emailEsValido) {
-            mostrarAlerta("Email inválido", emailInput)
+            mostrarAlerta("Email inválido", emailInput.parentElement)
         } else {
-            limpiarAlerta(emailInput)
+            limpiarAlerta(emailInput.parentElement)
         }
         
         if (!telefonoEsValido) {
-            mostrarAlerta("Teléfono inválido", telefonoInput)
+            mostrarAlerta("Teléfono inválido", telefonoInput.parentElement)
         } else {
-            limpiarAlerta(telefonoInput)
+            limpiarAlerta(telefonoInput.parentElement)
         } 
         
         if (!empresaEsValida) {
-            mostrarAlerta("Empresa inválida", empresaInput)
+            mostrarAlerta("Empresa inválida", empresaInput.parentElement)
         } else {
-            limpiarAlerta(empresaInput)
+            limpiarAlerta(empresaInput.parentElement)
         } 
         
         if (formularioEsValido) {
