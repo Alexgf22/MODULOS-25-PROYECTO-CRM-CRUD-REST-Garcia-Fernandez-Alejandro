@@ -20,8 +20,6 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = "index.html"
     })
 
-    //const btnGuardarCambios = document.querySelector('#formulario button[type="submit"]')
-
     const nombreInput = document.querySelector("#nombre")
     const emailInput = document.querySelector("#email")
     const telefonoInput = document.querySelector("#telefono")

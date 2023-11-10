@@ -1,6 +1,5 @@
-import { agregarCliente, eliminarCliente } from './basededatos.js'
+import { agregarCliente} from './basededatos.js'
 
-// Objeto con los datos del cliente
 let clienteOBJ = {
     nombre: "",
     email: "",
@@ -8,10 +7,8 @@ let clienteOBJ = {
     empresa: ""
 }
 
-// Selectores y Listeners
 document.addEventListener("DOMContentLoaded", () => {
 
-    // Selectores
     const inputNombre = document.querySelector("#nombre")
     const inputCorreo = document.querySelector("#email")
     const inputTelefono = document.querySelector("#telefono")
@@ -19,18 +16,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const formulario = document.querySelector("#formulario")
     const btnSubmit = document.querySelector('#formulario button[type = "submit"]')
     const spinner = document.querySelector("#spinner")
-    let tablaDeClientes = document.querySelector("#listado-clientes")
 
-    
     btnSubmit.disabled = true
     btnSubmit.classList.add("opacity-50")
 
-    cargarClientesDesdeDB()
-
-    // Listeners
     btnSubmit.addEventListener("click", () => {
-        anadirHTML()
+        agregarClienteDB()
+        window.location.href = 'index.html'
     })
+
     inputNombre.addEventListener("focus", resaltarCampoActivo)
     inputCorreo.addEventListener("focus", resaltarCampoActivo)
     inputTelefono.addEventListener("focus", resaltarCampoActivo)
@@ -40,200 +34,49 @@ document.addEventListener("DOMContentLoaded", () => {
         quitarResaltadoCampo(e)
         validar(e)
     })
+
     inputCorreo.addEventListener("input", (e) => {
         quitarResaltadoCampo(e)
         validar(e)
     })
+
     inputTelefono.addEventListener("input", (e) => {
         quitarResaltadoCampo(e)
         validar(e)
     })
+
     inputEmpresa.addEventListener("input", (e) => {
         quitarResaltadoCampo(e)
         validar(e)
     })
+
     formulario.addEventListener("submit", activarSpinner)
 
-    // Funciones
-    function anadirHTML() {
-
+    function agregarClienteDB() {
         const id = generarIdUnico()
-
+    
         if (clienteOBJ.nombre !== "" && clienteOBJ.email !== "" && clienteOBJ.telefono !== "" && clienteOBJ.empresa !== "") {
-            const fila = document.createElement("tr")
-            fila.dataset.id = id
-        
-            const nombreCliente = document.createElement("td")
-            nombreCliente.textContent = clienteOBJ.nombre
-            fila.appendChild(nombreCliente)
-        
-            const telefonoCliente = document.createElement("td")
-            telefonoCliente.textContent = clienteOBJ.telefono
-            fila.appendChild(telefonoCliente)
-        
-            const empresaCliente = document.createElement("td")
-            empresaCliente.textContent = clienteOBJ.empresa
-            fila.appendChild(empresaCliente)
-
-            const acciones = document.createElement("td")
-
-            const contenedorBotones = document.createElement("div")
-        
-            const botonEditar = document.createElement("button")
-            botonEditar.textContent = "Editar Cliente"
-
-            botonEditar.classList.add("bg-teal-600")
-            botonEditar.classList.add("mt-5")
-            botonEditar.classList.add("p-2")
-            botonEditar.classList.add("text-white")
-            botonEditar.classList.add("uppercase")
-            botonEditar.classList.add("font-bold")
-
-            botonEditar.addEventListener("click", () => {
-                const idCliente = fila.dataset.id
-                const url = `editar-cliente.html?id=${idCliente}`
-                window.location.href = url
-            })
-            
-            const espacio = document.createTextNode(" ")
-        
-            const botonBorrar = document.createElement("button")
-            botonBorrar.textContent = "Borrar Cliente"
-
-            botonBorrar.classList.add("bg-teal-600")
-            botonBorrar.classList.add("mt-5")
-            botonBorrar.classList.add("p-2")
-            botonBorrar.classList.add("text-white")
-            botonBorrar.classList.add("uppercase")
-            botonBorrar.classList.add("font-bold")
-
-            botonBorrar.addEventListener("click", (e) => {
-                const fila = e.target.parentElement.parentElement.parentElement
-                const idCliente = fila.dataset.id
-                console.log("ID del cliente a eliminar:", idCliente)
-                eliminarCliente(idCliente)
-                fila.remove()
-            })
-            
-            contenedorBotones.appendChild(botonEditar)
-            contenedorBotones.appendChild(espacio)
-            contenedorBotones.appendChild(botonBorrar)
-        
-            acciones.appendChild(contenedorBotones)
-        
-            fila.appendChild(acciones)
-        
-            tablaDeClientes.appendChild(fila)
-
             let copiaClienteOBJ = { ...clienteOBJ, id }
-
+    
             agregarCliente(copiaClienteOBJ)
-
+    
             clienteOBJ.nombre = ""
             clienteOBJ.email = ""
             clienteOBJ.telefono = ""
-            clienteOBJ.empresa = "" 
+            clienteOBJ.empresa = ""
             formulario.reset()
             comprobarFormulario()
+    
+            console.log("Añadiendo cliente a la base de datos:", copiaClienteOBJ)
+        } else {
+            console.error("No se pueden añadir clientes con campos vacíos.")
         }
     }
-
+    
     function generarIdUnico() {
         const timestamp = Date.now()
-        const numeroAleatorio = Math.floor(Math.random() * 10000) 
+        const numeroAleatorio = Math.floor(Math.random() * 10000)
         return `${timestamp}-${numeroAleatorio}`
-    }
-
-    function cargarClientesDesdeDB() {
-        const request = indexedDB.open('MiBaseDeDatos', 1)
-
-        request.onsuccess = function(event) {
-            const db = event.target.result
-            const transaction = db.transaction(['clientes'], 'readonly')
-            const objectStore = transaction.objectStore('clientes')
-            const getAllRequest = objectStore.getAll()
-
-            getAllRequest.onsuccess = function(event) {
-                const clientes = event.target.result
-                if (clientes && clientes.length > 0) {
-                    clientes.forEach(cliente => {
-                        regresarClienteAlHtml(cliente)
-                    })
-                }
-            }
-        }
-
-        request.onerror = function(event) {
-            console.error('Error al abrir la base de datos:', event.target.errorCode)
-        }
-    }
-
-    function regresarClienteAlHtml(cliente) {
-        const fila = document.createElement("tr")
-        
-        const nombreCliente = document.createElement("td")
-        nombreCliente.textContent = cliente.nombre
-        fila.appendChild(nombreCliente)
-    
-        const telefonoCliente = document.createElement("td")
-        telefonoCliente.textContent = cliente.telefono
-        fila.appendChild(telefonoCliente)
-    
-        const empresaCliente = document.createElement("td")
-        empresaCliente.textContent = cliente.empresa
-        fila.appendChild(empresaCliente)
-
-        const acciones = document.createElement("td")
-
-        const contenedorBotones = document.createElement("div")
-    
-        const botonEditar = document.createElement("button")
-        botonEditar.textContent = "Editar Cliente"
-
-        botonEditar.classList.add("bg-teal-600")
-        botonEditar.classList.add("mt-5")
-        botonEditar.classList.add("p-2")
-        botonEditar.classList.add("text-white")
-        botonEditar.classList.add("uppercase")
-        botonEditar.classList.add("font-bold")
-
-        botonEditar.addEventListener("click", () => {
-            const url = `editar-cliente.html?id=${cliente.id}`
-            window.location.href = url
-        })
-        
-        const espacio = document.createTextNode(" ")
-    
-        const botonBorrar = document.createElement("button")
-        botonBorrar.textContent = "Borrar Cliente"
-
-        botonBorrar.classList.add("bg-teal-600")
-        botonBorrar.classList.add("mt-5")
-        botonBorrar.classList.add("p-2")
-        botonBorrar.classList.add("text-white")
-        botonBorrar.classList.add("uppercase")
-        botonBorrar.classList.add("font-bold")
-
-        botonBorrar.addEventListener("click", () => {
-            eliminarCliente(cliente.id)
-            fila.remove()
-        })
-
-        contenedorBotones.appendChild(botonEditar)
-        contenedorBotones.appendChild(espacio)
-        contenedorBotones.appendChild(botonBorrar)
-    
-        acciones.appendChild(contenedorBotones)
-    
-        fila.appendChild(acciones)
-    
-        //tablaDeClientes.appendChild(fila)
-
-        if (tablaDeClientes) {
-            tablaDeClientes.appendChild(fila)
-        } else {
-            console.error("No se pudo encontrar el elemento 'tablaDeClientes'.")
-        }
     }
 
     function resaltarCampoActivo(e) {
@@ -250,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault()
         spinner.classList.remove("hidden")
         spinner.classList.add("flex")
-        
+
         setTimeout(() => {
             spinner.classList.add("hidden")
             spinner.classList.remove("flex")
@@ -274,13 +117,13 @@ document.addEventListener("DOMContentLoaded", () => {
         clienteOBJ.nombre = ""
         clienteOBJ.email = ""
         clienteOBJ.telefono = ""
-        clienteOBJ.empresa = "" 
+        clienteOBJ.empresa = ""
         formulario.reset()
         comprobarFormulario()
     }
 
     function validar(e) {
-        if(e.target.value.trim() === "") {
+        if (e.target.value.trim() === "") {
             mostrarAlerta(`el campo ${e.target.id} es obligatorio`, e.target.parentElement)
             clienteOBJ[e.target.name] = ""
             comprobarFormulario()
@@ -325,10 +168,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function comprobarFormulario() {
         const values = Object.values(clienteOBJ)
-    
+
         const campoVacio = values.includes("")
         const formularioValido = values.every(value => value !== "")
-    
+
         if (campoVacio || !formularioValido) {
             btnSubmit.classList.add("opacity-50")
             btnSubmit.disabled = true
@@ -337,7 +180,7 @@ document.addEventListener("DOMContentLoaded", () => {
             btnSubmit.disabled = false
         }
     }
-    
+
     function limpiarAlerta(referencia) {
         const alerta = referencia.querySelector(".bg-red-600")
         if (alerta) {
@@ -365,32 +208,26 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function validarNombre(nombre) {
-        const regex = /^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ\s']+$/
+        const regex = /^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ\s']+/
         const longitudMinima = 2
         const longitudMaxima = 50
-    
+
         if (nombre.length < longitudMinima || nombre.length > longitudMaxima) {
             return false
         }
-    
+
         return regex.test(nombre)
     }
 
     function validarEmpresa(empresa) {
-        const regex = /^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ\s']+$/
+        const regex = /^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ\s']+/
         const longitudMinima = 2
         const longitudMaxima = 120
-    
-        if (nombre.length < longitudMinima || nombre.length > longitudMaxima) {
+
+        if (empresa.length < longitudMinima || empresa.length > longitudMaxima) {
             return false
         }
-    
+
         return regex.test(empresa)
     }
-
-    
-
 })
-
-
-
