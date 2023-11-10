@@ -36,19 +36,19 @@ document.addEventListener("DOMContentLoaded", () => {
     inputTelefono.addEventListener("focus", resaltarCampoActivo)
     inputEmpresa.addEventListener("focus", resaltarCampoActivo)
 
-    inputNombre.addEventListener("blur", (e) => {
+    inputNombre.addEventListener("input", (e) => {
         quitarResaltadoCampo(e)
         validar(e)
     })
-    inputCorreo.addEventListener("blur", (e) => {
+    inputCorreo.addEventListener("input", (e) => {
         quitarResaltadoCampo(e)
         validar(e)
     })
-    inputTelefono.addEventListener("blur", (e) => {
+    inputTelefono.addEventListener("input", (e) => {
         quitarResaltadoCampo(e)
         validar(e)
     })
-    inputEmpresa.addEventListener("blur", (e) => {
+    inputEmpresa.addEventListener("input", (e) => {
         quitarResaltadoCampo(e)
         validar(e)
     })
