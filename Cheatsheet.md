@@ -130,13 +130,13 @@ const esValida = regexEmpresa.test(empresa); // Devuelve true
 
 Explicación: Esta expresión regular valida una dirección de correo electrónico. Acepta letras, números, guiones, puntos, guiones bajos y signos de más. Además, exige un punto seguido de al menos 2 y como máximo 10 letras al final del dominio.
 
-Expresión regular: /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/
+Expresión regular: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/
 
 Ejemplo de uso:
 
 ```javascript
 
-const regexEmail = /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/
+const regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/
 const email = "juanito@gmail.com"
 const esValido = regexEmail.test(email); // Devuelve true
 
