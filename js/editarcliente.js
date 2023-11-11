@@ -150,7 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function validarEmail(email) {
-        const regex = /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/
+        const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/
         return regex.test(email)
     }
 

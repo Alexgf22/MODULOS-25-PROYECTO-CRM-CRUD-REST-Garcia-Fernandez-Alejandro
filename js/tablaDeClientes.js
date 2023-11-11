@@ -17,7 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             getAllRequest.onsuccess = function(event) {
                 const clientes = event.target.result
-                console.log("Clientes recuperados:", clientes)
 
                 if (clientes && clientes.length > 0) {
                     clientes.forEach(cliente => {

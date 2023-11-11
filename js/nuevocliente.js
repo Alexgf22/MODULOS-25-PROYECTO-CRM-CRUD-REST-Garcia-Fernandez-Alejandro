@@ -198,7 +198,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function validarEmail(email) {
-        const regex = /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/
+        const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/
         return regex.test(email)
     }
 
@@ -208,7 +208,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function validarNombre(nombre) {
-        const regex = /^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ\s']+/
+        const regex = /^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ\s']+$/
         const longitudMinima = 2
         const longitudMaxima = 50
 
@@ -220,7 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function validarEmpresa(empresa) {
-        const regex = /^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ\s']+/
+        const regex = /^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ\s']+$/
         const longitudMinima = 2
         const longitudMaxima = 120
 
