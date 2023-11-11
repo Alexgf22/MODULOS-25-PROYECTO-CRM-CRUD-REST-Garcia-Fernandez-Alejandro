@@ -56,6 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const id = generarIdUnico()
     
         if (clienteOBJ.nombre !== "" && clienteOBJ.email !== "" && clienteOBJ.telefono !== "" && clienteOBJ.empresa !== "") {
+            // Realiza una copia del objeto clienteOBJ con un id único
             let copiaClienteOBJ = { ...clienteOBJ, id }
     
             agregarCliente(copiaClienteOBJ)
@@ -89,6 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
         e.target.style.boxShadow = ""
     }
 
+    // Función para activar el spinner e imitar un envío de formulario
     function activarSpinner(e) {
         e.preventDefault()
         spinner.classList.remove("hidden")
@@ -99,6 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
             spinner.classList.remove("flex")
             resetForm()
 
+            // Diseñar y mostrar una alerta de éxito
             const alerta = document.createElement("p")
             alerta.classList.add("bg-green-500", "text-white", "text-center",
             "rounded-lg", "mt-10", "text-sm")
@@ -156,6 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         limpiarAlerta(e.target.parentElement)
 
+        // Capitalizar y asignar el valor al objeto clienteOBJ
         clienteOBJ[e.target.name] = capitalizarNombreCompleto(e.target.value.trim())
         comprobarFormulario(clienteOBJ)        
     }
@@ -166,6 +170,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return nombreCapitalizado
     }
 
+    // Función donde se verifica si el formulario está completo
     function comprobarFormulario() {
         const values = Object.values(clienteOBJ)
 
@@ -173,9 +178,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const formularioValido = values.every(value => value !== "")
 
         if (campoVacio || !formularioValido) {
+            // Se deshabilita el botón de envío si el formulario no es válido
             btnSubmit.classList.add("opacity-50")
             btnSubmit.disabled = true
         } else {
+            // Se habilita el botón de envío si el formulario es válido
             btnSubmit.classList.remove("opacity-50")
             btnSubmit.disabled = false
         }

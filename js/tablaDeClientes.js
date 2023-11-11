@@ -9,15 +9,18 @@ document.addEventListener("DOMContentLoaded", () => {
     function cargarClientesDesdeDB() {
         const request = indexedDB.open('MiBaseDeDatos', 1)
 
+        // Controlar el éxito de la apertura de la base de datos
         request.onsuccess = function(event) {
             const db = event.target.result
             const transaction = db.transaction(['clientes'], 'readonly')
             const objectStore = transaction.objectStore('clientes')
             const getAllRequest = objectStore.getAll()
 
+            // Controlar éxito al recuperar todos los clientes
             getAllRequest.onsuccess = function(event) {
                 const clientes = event.target.result
 
+                // Comprobar si hay clientes y añadirlos a la tabla HTML
                 if (clientes && clientes.length > 0) {
                     clientes.forEach(cliente => {
                         regresarClienteAlHtml(cliente)
@@ -48,6 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
         empresaCliente.textContent = cliente.empresa
         fila.appendChild(empresaCliente)
 
+        // Crear celda de acciones con botones de editar y borrar
         const acciones = document.createElement("td")
 
         const contenedorBotones = document.createElement("div")
@@ -62,6 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
             window.location.href = url
         })
 
+        // Espacio entre los botones de editar y borrar
         const espacio = document.createTextNode(" ")
 
         const botonBorrar = document.createElement("button")

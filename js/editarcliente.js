@@ -44,6 +44,9 @@ document.addEventListener("DOMContentLoaded", () => {
             request.onsuccess = function(event) {
                 const cliente = event.target.result
                 if (cliente) {
+                    /* Si encuentra un cliente actualiza los valores de
+                    los campos con las propiedades de dicho cliente 
+                    */
                     document.querySelector("#nombre").value = cliente.nombre
                     document.querySelector("#email").value = cliente.email
                     document.querySelector("#telefono").value = cliente.telefono
